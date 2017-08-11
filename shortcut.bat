@@ -60,4 +60,11 @@ SET LOG=".\%~N0_runtime.log"
 cscript //nologo .\!cSctVBS!
 DEL !cSctVBS! /f /q
 )1>>!LOG! 2>>&1
+set "size=-1"
+for /f %%i in ("!LOG!") do set size=%%~zi
+if %size% equ 0 (
+  del !LOG! 
+) else( 
+  notepad !LOG! 
+)
 REM timeout 30
