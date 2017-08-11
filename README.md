@@ -8,10 +8,14 @@ usage bg_task.vbs program arg1 arg2 arg3
 
 dir_count.bat - echos the count of items in a specified directory.
 
+fileparts.bat - splits a file into its "basename"(the filename+ext) and "dirname" full path - filename. Sets accorrding env variables. Also sets F_EXT and F_NAME if name and file ext are desired separate. Works on files or directories. May not work with trailing slashes.
+
 is_running - echos yes or no if the specified program.exe is currently running.
 
 
 is_scheduled.bat - echos yes or no if the specified taskname is scheduled in the root of scheduled tasks
+
+shortcut.bat - shortcut creator which impersonates shortcut.exe(poorly)
 
 sleep_ping.bat - function to delay, accurate to seconds.
 
