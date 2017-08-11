@@ -55,7 +55,6 @@ SET LOG=".\%~N0_runtime.log"
   echo '  oLink.IconLocation = "C:\Program Files\MyApp\MyProgram.EXE, 2"
   echo '  oLink.WindowStyle = "1"   
   echo '  oLink.WorkingDirectory = "C:\Program Files\MyApp"
-oLink.Save
   echo oLink.Save
 )1>!cSctVBS!
 cscript //nologo .\!cSctVBS!
