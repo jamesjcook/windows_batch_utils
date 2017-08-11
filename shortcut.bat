@@ -44,7 +44,7 @@ echo Will create shortuct !LinkName! in %folder%
 echo with args "%arguments%"
 SET cSctVBS=CreateShortcut.vbs
 SET LOG=".\%~N0_runtime.log"
-((
+(
   echo Set oWS = WScript.CreateObject^("WScript.Shell"^) 
   echo sLinkFile = oWS.ExpandEnvironmentStrings^("!Esc_LinkDest!"^)
   echo Set oLink = oWS.CreateShortcut^(sLinkFile^) 
@@ -57,13 +57,17 @@ SET LOG=".\%~N0_runtime.log"
   echo '  oLink.WorkingDirectory = "C:\Program Files\MyApp"
   echo oLink.Save
 )1>!cSctVBS!
-cscript //nologo .\!cSctVBS!
+
+(
+cscript //b //nologo .\!cSctVBS!
 DEL !cSctVBS! /f /q
 )1>>!LOG! 2>>&1
+REM cscript //nologo .\!cSctVBS!
+REM DEL !cSctVBS! /f /q
 set "size=-1"
 for /f %%i in ("!LOG!") do set size=%%~zi
 if %size% equ 0 (
-  del !LOG!
+  call del !LOG! 
 ) else ( 
   start notepad !LOG! 
 )
