@@ -65,6 +65,6 @@ for /f %%i in ("!LOG!") do set size=%%~zi
 if %size% equ 0 (
   del !LOG! 
 ) else( 
-  notepad !LOG! 
+  start notepad !LOG! 
 )
 REM timeout 30
