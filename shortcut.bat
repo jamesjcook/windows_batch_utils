@@ -63,7 +63,7 @@ DEL !cSctVBS! /f /q
 set "size=-1"
 for /f %%i in ("!LOG!") do set size=%%~zi
 if %size% equ 0 (
-  start del !LOG! 
+  del !LOG!
 ) else ( 
   start notepad !LOG! 
 )
