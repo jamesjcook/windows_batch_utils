@@ -1,7 +1,7 @@
 @echo off
 @REM shortcut [filename] [folder] [shortcut title] {arguments} {icon file} {icon resource number} {ShowCmd} {Start In Folder} {Hot Key}
 
-@REM Creates a shortcut to a file. 
+@REM Creates a shortcut to a file.
 @REM The parameters:
 @REM [filename]: Create a shortcut to this filename.
 @REM [folder]: Specify the destination folder that inside it the shortcut will be created. You can specify any valid folder, including the special variables that represent system folders, like ~$folder.desktop$ (Desktop folder), ~$folder.programs$ (Start-Menu-Programs folder), and so on...
@@ -15,21 +15,21 @@
 
 @REM Per info from superuser.com https://superuser.com/a/392082
 SETLOCAL ENABLEDELAYEDEXPANSION
-set "filename=%1"
-set "folder=%2"
-set "title=%3"
-set "arguments=%4"
-set "icon=%5"
-set "i_res_n=%6"
-set "ShowCmd=%7"
-set "start=%8"
-set "hkey=%9"
+set "filename=%~1"
+set "folder=%~2"
+set "title=%~3"
+set "arguments=%~4"
+set "icon=%~5"
+set "i_res_n=%~6"
+set "ShowCmd=%~7"
+set "start=%~8"
+set "hkey=%~9"
 
 :: Remove quotes
-SET arguments=###%arguments%###
-SET arguments=%arguments:"###=%
-SET arguments=%arguments:###"=%
-SET arguments=%arguments:###=%
+REM SET arguments=###%arguments%###
+REM SET arguments=%arguments:"###=%
+REM SET arguments=%arguments:###"=%
+REM SET arguments=%arguments:###=%
 
 call %~dp0\fileparts %filename%
 
@@ -45,19 +45,20 @@ echo with args "%arguments%"
 SET cSctVBS=CreateShortcut.vbs
 SET LOG=".\%~N0_runtime.log"
 (
-  echo Set oWS = WScript.CreateObject^("WScript.Shell"^) 
+  echo Set oWS = WScript.CreateObject^("WScript.Shell"^)
   echo sLinkFile = oWS.ExpandEnvironmentStrings^("!Esc_LinkDest!"^)
-  echo Set oLink = oWS.CreateShortcut^(sLinkFile^) 
+  echo Set oLink = oWS.CreateShortcut^(sLinkFile^)
   echo oLink.TargetPath = oWS.ExpandEnvironmentStrings^("!Esc_LinkTarget!"^)
   echo oLink.Arguments = oWS.ExpandEnvironmentStrings^("!arguments!"^)
-  echo '  oLink.Description = "MyProgram"   
+  echo '  oLink.Description = "MyProgram"
   echo '  oLink.HotKey = "ALT+CTRL+F"
   echo '  oLink.IconLocation = "C:\Program Files\MyApp\MyProgram.EXE, 2"
-  echo '  oLink.WindowStyle = "1"   
+  echo '  oLink.WindowStyle = "1"
   echo '  oLink.WorkingDirectory = "C:\Program Files\MyApp"
   echo oLink.Save
 )1>!cSctVBS!
-
+@REM no logging.... so log doesnt matter
+@REM echo check !LOG! for details
 (
 cscript //b //nologo .\!cSctVBS!
 DEL !cSctVBS! /f /q
@@ -67,8 +68,8 @@ REM DEL !cSctVBS! /f /q
 set "size=-1"
 for /f %%i in ("!LOG!") do set size=%%~zi
 if %size% equ 0 (
-  call del !LOG! 
-) else ( 
-  start notepad !LOG! 
+  call del !LOG!
+) else (
+  start notepad !LOG!
 )
 REM timeout 30
